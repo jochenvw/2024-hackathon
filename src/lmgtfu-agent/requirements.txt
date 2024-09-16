@@ -1,2 +1,8 @@
+python-dotenv
 pyautogen
 autogenstudio
+pytest
+langchain
+langchain_community
+langchain-openai
+bs4
