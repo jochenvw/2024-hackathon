@@ -74,7 +74,7 @@ executor = autogen.UserProxyAgent(
     },  
 )
 
-register_function(scrape_website, caller=researcher, executor=executor, name="web_scraping", description="A tool to scrape website contents", )
+register_function(scrape_website, caller=researcher, executor=executor, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
 register_function(google_search, caller=researcher, executor=executor, name="google_search", description="A tool to search the internet or web for a specific topic", )
 
 research_manager = autogen.AssistantAgent(
@@ -86,16 +86,18 @@ research_manager = autogen.AssistantAgent(
 )
 
 # Create group chat
-groupchat = autogen.GroupChat(agents=[user_proxy, researcher, research_manager, executor], messages=[], max_round=15)
+groupchat = autogen.GroupChat(agents=[user_proxy, researcher, research_manager, executor], messages=[], max_round=100)
 group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"config_list": config_list_gpt4})
 
 
 message = """
-You are an expert in Azure services and their integrations with Azure KeyVault. Please check whether each of the following Azure services can be backed up using Azure KeyVault. Return the results in a markdown table with the following columns:
+You are an expert in Azure services and their integrations with Azure Backup. Please check whether each of the following Azure services can be backed up using Azure Backup. 
+Return the results in a markdown table with the following columns:
 
 - **Service Name**: The name of the Azure service.
-- **Can Be Backed Up with KeyVault**: Yes or No.
-- **Backup Method**: If Yes, explain the backup method. If No, explain why it can't be backed up using KeyVault.
+- **Can Be Backed Up with Azure Backup**: Yes or No.
+- **Backup Method**: If Yes, explain the backup method. If No, explain why it can't be backed up using Azure Backup.
+- **URL**: URL that provides explanation for the claim.
 
 Here is the list of Azure services to check:
 

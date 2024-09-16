@@ -3,13 +3,13 @@ import os
 import requests
 
 
-def google_search(search_keyword : str) -> str:    
+def google_search(search_keyword : str) -> list[str]:    
     """
     Perform a Google search using the Serper API.
     Args:
         search_keyword (str): The keyword or query to search for.
     Returns:
-        str: The response text from the Serper API containing the search results.
+        list[str]: A list of URLs from the search results.
     Raises:
         requests.exceptions.RequestException: If there is an issue with the HTTP request.
     Example:
@@ -28,5 +28,8 @@ def google_search(search_keyword : str) -> str:
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    print("RESPONSE:", response.text)
-    return response.text
+    print(f'Searching Google for {search_keyword}...')
+
+    data = response.json()
+    links = [entry['link'] for entry in data['organic']]
+    return links

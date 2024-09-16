@@ -11,10 +11,9 @@ load_dotenv()
 
 class test_search_for_python(unittest.TestCase):
     def test_python_search(self):
-        result = google_search("Python programming")
+        result = google_search("Azure Functions backup to Azure Backup")
 
         print(result)
 
         self.assertIsNotNone(result)
         self.assertGreater(len(result), 0)
-        self.assertIn("Python", result)

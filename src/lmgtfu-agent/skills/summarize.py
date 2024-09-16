@@ -25,6 +25,7 @@ def summarize_text(objective: str, content: str) -> str:
     api_version = os.getenv("OAI_VERSION")
 
     llm = AzureChatOpenAI(temperature = 0, model = "gpt-4-32k", azure_endpoint=endpoint, api_key=key, api_version=api_version)
+    print("Using langchain to summarize the text...")
 
     text_splitter = RecursiveCharacterTextSplitter(separators=["\n\n", "\n"], chunk_size = 10000, chunk_overlap=500)
     docs = text_splitter.create_documents([content])
@@ -51,4 +52,4 @@ def summarize_text(objective: str, content: str) -> str:
     }
     
     output = summary_chain.invoke(inputs)
-    return output
+    return output['output_text']

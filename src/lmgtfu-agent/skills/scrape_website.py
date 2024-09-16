@@ -27,12 +27,14 @@ def scrape_website(objective: str, url: str):
 
     api_key = os.getenv("BROWSERLESS_API_KEY")
     response = requests.post(f"https://chrome.browserless.io/content?token={api_key}", headers=headers, data=data_json)
+    print(f"Scraping website {url}...")
     
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
         text = soup.get_text()
-            
+
         if len(text) > 10000:
+            print(f"Scraped {len(text)} characters from the website. Summarizing the text...")
             output = summarize_text(objective,text)
             return output
         else:
