@@ -1,0 +1,5 @@
+az login
+
+az account set --subscription "e3825c9a-4bce-43e1-899e-1610156c9383"
+az group create --name nl-stu-jvw-2024hack --location swedencentral
+az deployment group create --resource-group nl-stu-jvw-2024hack --template-file main.bicep
