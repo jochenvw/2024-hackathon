@@ -11,7 +11,8 @@
 		"vscode": {
 			"extensions": [
 				"ms-vscode.vscode-node-azure-pack",
-				"ms-vscode.azurecli"
+				"ms-vscode.azurecli",
+				"GitHub.copilot"
 			]
 		}
 	}

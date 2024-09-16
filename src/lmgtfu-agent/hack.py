@@ -3,7 +3,7 @@ import autogen
 config_list_gpt4 = autogen.config_list_from_json(
     "OAI_CONFIG_LIST",
     filter_dict={
-        "model": ["gpt-4-32k", "gpt-4-32k-0314", "gpt-4-32k-v0314"],
+        "model": ["gpt-4-32k"],
     },
 )
 
@@ -14,3 +14,4 @@ gpt4_config = {
     "timeout": 120,
 }
 
+# Read all skills from the /skills folder
