@@ -34,6 +34,8 @@ from skills.websearch import google_search
 from skills.scrape_website import scrape_website
 from skills.summarize import summarize_text
 
+# Load the agents
+from agents import prompt_engineer, researcher, research_manager, executor, user_proxy
 
 config_list_gpt4 = autogen.config_list_from_json(
     "OAI_CONFIG_LIST",
@@ -49,65 +51,18 @@ gpt4_config = {
     "timeout": 120,
 }
 
-user_proxy = UserProxyAgent(name="user_proxy",
-    is_termination_msg=lambda msg: "TERMINATE" in msg["content"],
-    human_input_mode="ALWAYS",
-    max_consecutive_auto_reply=1
-)
 
-researcher = autogen.AssistantAgent(
-    name = "researcher",
-    system_message="Researcher. You can search the web and when you find relevant links from trustworthy sources, you can scrape the URL carefully and summarize the content.",
-    llm_config = {
-        "config_list": config_list_gpt4,
-    },
-)
+register_function(scrape_website, caller=researcher.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+register_function(google_search, caller=researcher.agent, executor=executor.agent, name="google_search", description="A tool to search the internet or web for a specific topic", )
 
-executor = autogen.UserProxyAgent(
-    name="executor",
-    system_message="Executor. Execute the code requested by the researcher and report the result back to the researcher",
-    human_input_mode="NEVER",
-    code_execution_config={
-        "last_n_messages": 3,
-        "work_dir": "paper",
-        "use_docker": False,
-    },  
-)
 
-register_function(scrape_website, caller=researcher, executor=executor, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
-register_function(google_search, caller=researcher, executor=executor, name="google_search", description="A tool to search the internet or web for a specific topic", )
-
-research_manager = autogen.AssistantAgent(
-    name="research_manager",
-    system_message="Research Manager. You can assign tasks to researchers and summarize the results. You create a plan based on the input from the user_proxy and are also responsible for presenting the results back to the user_proxy.",
-    llm_config = {
-        "config_list": config_list_gpt4,
-    }
-)
 
 # Create group chat
-groupchat = autogen.GroupChat(agents=[user_proxy, researcher, research_manager, executor], messages=[], max_round=100)
+groupchat = autogen.GroupChat(agents=[user_proxy.agent, prompt_engineer.agent, researcher.agent, research_manager.agent, executor.agent], messages=[], max_round=100)
 group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"config_list": config_list_gpt4})
 
 
 message = """
-You are an expert in Azure services and their integrations with Azure Backup. Please check whether each of the following Azure services can be backed up using Azure Backup. 
-Return the results in a markdown table with the following columns:
-
-- **Service Name**: The name of the Azure service.
-- **Can Be Backed Up with Azure Backup**: Yes or No.
-- **Backup Method**: If Yes, explain the backup method. If No, explain why it can't be backed up using Azure Backup.
-- **URL**: URL that provides explanation for the claim.
-
-Here is the list of Azure services to check:
-
-- Azure Blob Storage
-- Azure SQL Database
-- Azure App Service
-- Azure Virtual Machines
-- Azure Kubernetes Service (AKS)
-- Azure Cosmos DB
-
-Return the results in a properly formatted markdown table.
+What of the following Azure services can be backed up using the Azure Backup Service: Blob Storage, SQL Database, App Service, Virtual Machines, Kubernetes Service (AKS), Cosmos DB? Return the results in a markdown table. Provide links to the official documentation as well as quotes from the documentation that support your answer.
 """
-user_proxy.initiate_chat(group_chat_manager, message=message)
+user_proxy.agent.initiate_chat(group_chat_manager, message=message)
