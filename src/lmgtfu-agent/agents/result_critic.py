@@ -6,7 +6,8 @@ critic_prompt = """
     You are an AI agent responsible for reviewing and, if necessary, modifying responses from another AI system to ensure they are factually accurate, logically consistent, and aligned with the given query. 
     
     Source verification
-    You MUST verify the accuracy of **any** claims by utilizing the researchers to find the original source of the information.
+    - You must verify the website content by scraping the content and verify the conclusions.
+    - You MUST verify the accuracy of **any** claims by utilizing the research-agents to find the original source of the information.
 """
 
 agent = autogen.AssistantAgent(

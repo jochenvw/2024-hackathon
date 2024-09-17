@@ -48,6 +48,8 @@ gpt4_config = {
 
 register_function(scrape_website, caller=researcher.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
 register_function(google_search, caller=researcher.agent, executor=executor.agent, name="google_search", description="A tool to search the internet or web for a specific topic", )
+register_function(scrape_website, caller=result_critic.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+
 
 # Create group chat
 groupchat = autogen.GroupChat(agents=[user_proxy.agent, prompt_engineer.agent, researcher.agent, research_manager.agent, executor.agent, result_critic.agent], messages=[], max_round=100)

@@ -16,7 +16,6 @@ def scrape_website(objective: str, url: str, summarizeText: bool = True) -> str:
     Raises:
         HTTPError: If the HTTP request to the scraping service fails.
     """
-
     headers = {
         'Cache-Control': 'no-cache',
         'Content-Type': 'application/json',
