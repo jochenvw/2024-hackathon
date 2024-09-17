@@ -31,5 +31,8 @@ def google_search(search_keyword : str) -> list[str]:
     print(f'Searching Google for {search_keyword}...')
 
     data = response.json()
+
+    # The result is a JSON object with a property 'organic' that contains the search results
+    # inside, there's a link to the search result. That's the only thing we're interested in.
     links = [entry['link'] for entry in data['organic']]
     return links
