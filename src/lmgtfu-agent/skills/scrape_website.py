@@ -4,14 +4,17 @@ import os
 from bs4 import BeautifulSoup
 from skills.summarize import summarize_text
 
-def scrape_website(objective: str, url: str):
+def scrape_website(objective: str, url: str, summarizeText: bool = True) -> str:
     """
-    Scrapes the content of a website and optionally summarizes it.
+    Scrapes the content of a given website URL and optionally summarizes the text.
     Args:
-        objective (str): The objective or purpose for summarizing the text.
+        objective (str): The objective or purpose of scraping the website.
         url (str): The URL of the website to scrape.
+        summarizeText (bool, optional): Flag to indicate whether to summarize the scraped text if it exceeds 10,000 characters. Defaults to True.
     Returns:
-        str: The scraped text or its summary if the text length exceeds 10000 characters.
+        str: The scraped (and optionally summarized) text content of the website.
+    Raises:
+        HTTPError: If the HTTP request to the scraping service fails.
     """
 
     headers = {
@@ -33,7 +36,7 @@ def scrape_website(objective: str, url: str):
         soup = BeautifulSoup(response.content, "html.parser")
         text = soup.get_text()
 
-        if len(text) > 10000:
+        if len(text) > 10000 and summarizeText:
             print(f"Scraped {len(text)} characters from the website. Summarizing the text...")
             output = summarize_text(objective,text)
             return output
