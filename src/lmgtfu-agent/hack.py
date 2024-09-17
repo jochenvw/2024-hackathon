@@ -57,6 +57,6 @@ group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"
 
 
 message = """
-What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table. Provide links to the official documentation as well as quotes from the documentation that support your answer.
+What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table.
 """
 user_proxy.agent.initiate_chat(group_chat_manager, message=message)
