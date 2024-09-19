@@ -17,3 +17,11 @@ class test_search_for_python(unittest.TestCase):
 
         self.assertIsNotNone(result)
         self.assertGreater(len(result), 0)
+
+    def test_python_directed_search(self):
+        result = google_search("Azure Functions backup to Azure Backup", "docs.microsoft.com")
+
+        print(result)
+
+        self.assertIsNotNone(result)
+        self.assertGreater(len(result), 0)        
