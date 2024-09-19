@@ -7,7 +7,7 @@ import os
 from skills.websearch import google_search
 from skills.scrape_website import scrape_website
 
-def get_arm_spec(serviceName: str) -> str:
+def go_get_arm_spec(serviceName: str) -> str:
     """
     Retrieves the Azure Resource Manager (ARM) specification URL for a given Azure service.
     This function performs the following steps:
@@ -31,9 +31,11 @@ def get_arm_spec(serviceName: str) -> str:
 
     llm = AzureChatOpenAI(temperature = 0, model = "gpt-4-32k", azure_endpoint=endpoint, api_key=key, api_version=api_version)
     
+    # Selec the URL from the list of search results
     tpl = """
         In the list of URLs, find the best best candidate to contain information about {service_name}. 
-        - Look for a URL that contains the full service name "{service_name} or part of the service name"
+        - Return the URL that contains the Azure Resource Provider name of the Azure service name
+        - Otherwise, return the URL that contains the service name 
         - Ensure to point to the URL that contains the ARM template for the service, by including URL Query Parameters "?pivots=deployment-language-arm-template"
         - Respond with the URL and only the URL
 
@@ -47,7 +49,6 @@ def get_arm_spec(serviceName: str) -> str:
 
     filter_chain = filter_tpl | llm
     
-    # input dictionary
     inputs = {
         "service_name": serviceName,
         "searchResults": json.dumps(searchResults)
@@ -57,7 +58,31 @@ def get_arm_spec(serviceName: str) -> str:
 
     print(f"Identified the best URL for {serviceName}: {output.content}")
     url = output.content
-    armSpec = scrape_website(url=url, objective="summarize to be used to generate an ARM template. So keep all JSON properties, descriptions and examples.", summarizeText=True)
+    armSpec = scrape_website(url=url, objective="summarize to be used to generate an ARM template. So keep all JSON properties, descriptions and examples.", summarizeText=False)
 
-    print(f"Retrieved ARM specification for {serviceName} from {url} - returning summarized text...")
-    return armSpec
+
+    # Selec the URL from the list of search results
+    tpl = """
+        Filter out the ARM specification page and ONLY return the 'Resource format' part, which contains the JSON schema for the ARM template.
+
+        ## begin of documentation
+        {documentation}
+        ## end of documentation
+    """
+    filter_tpl = PromptTemplate(template=tpl, input_variables=["documentation"])   
+    filter_chain = filter_tpl | llm
+    
+    inputs = {
+        "documentation": armSpec,
+    }
+
+    resource_format = filter_chain.invoke(inputs)
+
+    result = {
+        "serviceName": serviceName,
+        "url": url,
+        "resource_format": resource_format.content,
+        "raw_arm_spec": armSpec
+    }
+
+    return result
