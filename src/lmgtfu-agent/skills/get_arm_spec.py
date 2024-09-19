@@ -23,6 +23,8 @@ def get_arm_spec(serviceName: str) -> str:
     armSpecSite = "learn.microsoft.com/en-us/azure/templates"
     searchResults = google_search(serviceName, armSpecSite)
 
+    print(f"Found {len(searchResults)} search results for {serviceName} on {armSpecSite}")
+
     endpoint = os.getenv("OAI_ENDPOINT")
     key = os.getenv("OAI_KEY")
     api_version = os.getenv("OAI_VERSION")
@@ -52,7 +54,10 @@ def get_arm_spec(serviceName: str) -> str:
     }
     
     output = filter_chain.invoke(inputs)
-    url = output.content
 
-    armSpec = scrape_website(url=url, objective="", summarizeText=False)
+    print(f"Identified the best URL for {serviceName}: {output.content}")
+    url = output.content
+    armSpec = scrape_website(url=url, objective="summarize to be used to generate an ARM template. So keep all JSON properties, descriptions and examples.", summarizeText=True)
+
+    print(f"Retrieved ARM specification for {serviceName} from {url} - returning summarized text...")
     return armSpec
