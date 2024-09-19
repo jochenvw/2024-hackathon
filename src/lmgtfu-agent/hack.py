@@ -7,7 +7,8 @@
 # Project page: https://hackbox.microsoft.com/hackathons/hackathon2024/project/73988
 # Repository:   https://github.com/jochenvw/2024-hackathon
 #
-# Hackers:
+# Team of hackers
+# 
 # Nikita Dandwani
 # Dylan de Jong
 # Arthur Hallensleben

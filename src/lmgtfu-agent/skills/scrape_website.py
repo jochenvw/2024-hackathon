@@ -35,7 +35,7 @@ def scrape_website(objective: str, url: str, summarizeText: bool = True) -> str:
         soup = BeautifulSoup(response.content, "html.parser")
         text = soup.get_text()
 
-        if len(text) > 10000 and summarizeText:
+        if len(text) > 10000 or summarizeText:
             print(f"Scraped {len(text)} characters from the website. Summarizing the text...")
             output = summarize_text(objective,text)
             return output

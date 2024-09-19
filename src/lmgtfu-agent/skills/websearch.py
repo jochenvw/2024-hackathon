@@ -3,11 +3,12 @@ import os
 import requests
 
 
-def google_search(search_keyword : str) -> list[str]:    
+def google_search(search_keyword: str, site: str = "") -> list[str]:    
     """
     Perform a Google search using the Serper API.
     Args:
         search_keyword (str): The keyword or query to search for.
+        site (str, optional): The site to restrict the search to. Defaults to "".
     Returns:
         list[str]: A list of URLs from the search results.
     Raises:
@@ -18,8 +19,12 @@ def google_search(search_keyword : str) -> list[str]:
     """
     url = "https://google.serper.dev/search"
 
+    query = search_keyword
+    if site:
+        query += f" site:{site}"
+
     payload = json.dumps({
-        "q": search_keyword
+        "q": query
     })
 
     headers = {
