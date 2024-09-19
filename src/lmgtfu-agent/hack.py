@@ -7,8 +7,8 @@
 # Project page: https://hackbox.microsoft.com/hackathons/hackathon2024/project/73988
 # Repository:   https://github.com/jochenvw/2024-hackathon
 #
-# Team of hackers:
-#
+# Team of hackers
+# 
 # Nikita Dandwani
 # Dylan de Jong
 # Arthur Hallensleben
@@ -36,7 +36,7 @@ from skills.scrape_website import scrape_website
 from skills.summarize import summarize_text
 
 # Load the agents
-from agents import prompt_engineer, researcher, research_manager, executor, user_proxy, result_critic
+from agents import prompt_engineer, researcher, research_manager, executor, user_proxy, result_critic, waf_expert
 
 config_list_gpt4 = autogen.config_list_from_json("OAI_CONFIG_LIST")
 
@@ -53,11 +53,11 @@ register_function(scrape_website, caller=result_critic.agent, executor=executor.
 
 
 # Create group chat
-groupchat = autogen.GroupChat(agents=[user_proxy.agent, prompt_engineer.agent, researcher.agent, research_manager.agent, executor.agent, result_critic.agent], messages=[], max_round=100)
+groupchat = autogen.GroupChat(agents=[user_proxy.agent, prompt_engineer.agent, researcher.agent, research_manager.agent, executor.agent, result_critic.agent, waf_expert.agent], messages=[], max_round=100)
 group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"config_list": config_list_gpt4})
 
 
 message = """
-What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table. Provide links to the official documentation as well as quotes from the documentation that support your answer.
+What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table.
 """
 user_proxy.agent.initiate_chat(group_chat_manager, message=message)
