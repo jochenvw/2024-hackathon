@@ -46,9 +46,9 @@ gpt4_config = {
     "timeout": 120,
 }
 
-register_function(scrape_website, caller=researcher.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
-register_function(google_search, caller=researcher.agent, executor=executor.agent, name="google_search", description="A tool to search the internet or web for a specific topic", )
-register_function(scrape_website, caller=result_critic.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+#register_function(scrape_website, caller=researcher.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+#register_function(google_search, caller=researcher.agent, executor=executor.agent, name="google_search", description="A tool to search the internet or web for a specific topic", )
+#register_function(scrape_website, caller=result_critic.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
 
 
 # Create group chat
@@ -57,6 +57,6 @@ group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"
 
 
 message = """
-What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table.
+Generate for me the ARM template to enable CMK for Azure NetApp Files.  
 """
 user_proxy.agent.initiate_chat(group_chat_manager, message=message)
