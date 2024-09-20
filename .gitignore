@@ -1,0 +1,6 @@
+**/.cache/
+**/__pycache__/**/*
+**/__pycache__
+**/*.pyc
+**/*.env
+**/OAI_CONFIG_LIST

@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "src/lmgtfu-agent"
+		}
+	],	
+	"settings": {
+		"files.exclude": {
+			"**/.cache": true,
+			"**/.pytest_cache": true,
+			"**/.vscode": true,
+			"**/__pycache__": true
+		}
+	},
+}
