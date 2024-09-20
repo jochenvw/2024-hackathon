@@ -1,14 +1,24 @@
 # Code version
 [https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de](https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de)
 
-# Goal
-- Check the documented ARM specifications if a feauture configuration is possible
-- Get the ARM specifications to configure this feauture for the given Azure Service, with a clear explenation.
-- The result is checked by the WAF (Well Architeced Framework) agent to check if it is in-line with WAF guidance. 
-- The results is checked by the Critic agent to validate correctness.
-- TODO: add this approach to the agent orchestrator to validate if a feauture is available for a list of Azure Services. For example which Azure Service support Private Endpoints.
+# Goal:
+Automate the process of generating and validating ARM templates for a specified service and feauture. Extract and document key parameters and assess if policies can be enforced based on those parameters.
 
-# Alternative
+#### Tasks:
+- [x] **Check the documented ARM specifications if a feauture configuration is possible
+- [x] **Generate ARM template** using the Micrososft documentation for the specified service and feauture.
+- [x] **The result is checked by the WAF (Well Architeced Framework) agent to check if it is in-line with WAF guidance.
+- [x] **The results is checked by the Critic agent to validate correctness, like the parameters against the ARM specification.
+- [x] **Output - ARM template** to fullfill the request from the user.
+- [ ] **Output - Translate ARM template** into plain English for IT professionals, explaining each parameter/property.
+- [x] **Output - Create a parameter overview table** detailing each parameter, its function, possible values, and defaults.
+- [ ] *(ToDo)* **Check policy enforcement**: Investigate if policies can be written using the ARM template parameters.
+- [ ] *(ToDo)* **Scale Out**: add this approach to the agent orchestrator to validate if a feauture is available for a list of Azure Services. For example which Azure Service support Private Endpoints..
+
+#### Example:
+"I have a question on Service X - Can this be done?" — The agent should verify feasibility based on the ARM specification, not just general documentation.
+
+### Alternative
 - create ARM templates with GitHub Copilot, this will generate the arm template only. We would like to validate it against the ARM documentation & WAF and use this orchestration in a wider task. 
 
 # Question 1 example: Azure Backup and Azure Files
