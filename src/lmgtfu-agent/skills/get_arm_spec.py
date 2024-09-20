@@ -56,7 +56,7 @@ def go_get_arm_spec(serviceName: str) -> str:
     
     output = filter_chain.invoke(inputs)
 
-    print(f"Identified the best URL for {serviceName}: {output.content}")
+    print(f"get_arm: Identified the best URL for {serviceName}: {output.content}")
     url = output.content
     armSpec = scrape_website(url=url, objective="summarize to be used to generate an ARM template. So keep all JSON properties, descriptions and examples.", summarizeText=False)
 
@@ -85,4 +85,7 @@ def go_get_arm_spec(serviceName: str) -> str:
         "raw_arm_spec": armSpec
     }
 
-    return result
+    readable_text = '\n'.join([line for line in resource_format.content.split('\n') if line.strip() != ''])
+    print(readable_text)
+
+    return resource_format.content

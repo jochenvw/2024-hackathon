@@ -60,6 +60,6 @@ group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"
 
 
 message = """
-Generate for me the ARM template to enable Azure Backup for Azure files storage.  
+Generate for me the ARM template to enable private endpoints for Azure Storage.  
 """
 user_proxy.agent.initiate_chat(group_chat_manager, message=message)
