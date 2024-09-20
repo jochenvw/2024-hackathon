@@ -10,8 +10,8 @@
 # Alternative
 - create ARM templates with GitHub Copilot, this will generate the arm template only. We would like to validate it against the documentation and use this orchestration in a wider task. 
 
-# Question 1 example
-Generate for me the ARM template to enable Azure Backup for Azure files storage.
+# Question 1 example: Azure Backup and Azure Files
+> Generate for me the ARM template to enable Azure Backup for Azure files storage.
 
 ## Result
 
@@ -64,7 +64,7 @@ In this ARM template, below are the parameters that are used and their respectiv
 | vaultRetentionType       | The type of the vault retention policy.                   | string                        |                |
 | workLoadType             | The type of the workload.                                 | string                        |                |
 
-# Question example 2: Pvraivate Endpoints and storage
+# Question example 2: Private Endpoints and storage
 
 ## Question
 > Generate for me the ARM template to enable private endpoints for Azure Storage. 
