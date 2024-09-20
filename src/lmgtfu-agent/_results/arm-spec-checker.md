@@ -1,5 +1,5 @@
 # Code version
-[https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de](https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de)
+[https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de](https://github.com/jochenvw/2024-hackathon/tree/10-include-link-to-arm-specification-github-repository-to-confirm-answer/src/lmgtfu-agent))
 
 # Goal:
 Automate the process of generating and validating ARM templates for a specified service and feauture. Extract and document key parameters and assess if policies can be enforced based on those parameters.
