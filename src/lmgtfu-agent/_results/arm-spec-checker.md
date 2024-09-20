@@ -4,11 +4,12 @@
 # Goal
 - Check the documented ARM specifications if a feauture configuration is possible
 - Get the ARM specifications to configure this feauture for the given Azure Service, with a clear explenation.
+- The result is checked by the WAF (Well Architeced Framework) agent to check if it is in-line with WAF guidance. 
 - The results is checked by the Critic agent to validate correctness.
 - TODO: add this approach to the agent orchestrator to validate if a feauture is available for a list of Azure Services. For example which Azure Service support Private Endpoints.
 
 # Alternative
-- create ARM templates with GitHub Copilot, this will generate the arm template only. We would like to validate it against the documentation and use this orchestration in a wider task. 
+- create ARM templates with GitHub Copilot, this will generate the arm template only. We would like to validate it against the ARM documentation & WAF and use this orchestration in a wider task. 
 
 # Question 1 example: Azure Backup and Azure Files
 > Generate for me the ARM template to enable Azure Backup for Azure files storage.
