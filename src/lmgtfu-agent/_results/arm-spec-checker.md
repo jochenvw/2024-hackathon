@@ -1,11 +1,28 @@
 # Code version
-[https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de](https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de)
+[https://github.com/jochenvw/2024-hackathon/commit/75a740c70f5d6674f4ac828d5858ca63413469de](https://github.com/jochenvw/2024-hackathon/tree/10-include-link-to-arm-specification-github-repository-to-confirm-answer/src/lmgtfu-agent))
 
-# Goal
-Get the ARM specifications to configure a feauture for any Azure Service, with a clear explenation. The results should be checked by the Critic agent to validate correctness. 
+# Goal:
+Automate the process of generating and validating ARM templates for a specified service and feauture. Extract and document key parameters and assess if policies can be enforced based on those parameters.
 
-# Question 1 example
-Generate for me the ARM template to enable Azure Backup for Azure files storage.
+#### Tasks:
+- [x] **Check the documented ARM specifications if a feauture configuration is possible
+- [x] **Generate ARM template** using the Micrososft documentation for the specified service and feauture.
+- [x] **The result is checked by the WAF (Well Architeced Framework) agent to check if it is in-line with WAF guidance.
+- [x] **The results is checked by the Critic agent to validate correctness, like the parameters against the ARM specification.
+- [x] **Output - ARM template** to fullfill the request from the user.
+- [ ] **Output - Translate ARM template** into plain English for IT professionals, explaining each parameter/property.
+- [x] **Output - Create a parameter overview table** detailing each parameter, its function, possible values, and defaults.
+- [ ] *(ToDo)* **Check policy enforcement**: Investigate if policies can be written using the ARM template parameters.
+- [ ] *(ToDo)* **Scale Out**: add this approach to the agent orchestrator to validate if a feauture is available for a list of Azure Services. For example which Azure Service support Private Endpoints..
+
+#### Example:
+"I have a question on Service X - Can this be done?" — The agent should verify feasibility based on the ARM specification, not just general documentation.
+
+### Alternative
+- create ARM templates with GitHub Copilot, this will generate the arm template only. We would like to validate it against the ARM documentation & WAF and use this orchestration in a wider task. 
+
+# Question 1 example: Azure Backup and Azure Files
+> Generate for me the ARM template to enable Azure Backup for Azure files storage.
 
 ## Result
 
@@ -58,7 +75,7 @@ In this ARM template, below are the parameters that are used and their respectiv
 | vaultRetentionType       | The type of the vault retention policy.                   | string                        |                |
 | workLoadType             | The type of the workload.                                 | string                        |                |
 
-# Question example 2
+# Question example 2: Private Endpoints and storage
 
 ## Question
 > Generate for me the ARM template to enable private endpoints for Azure Storage. 
@@ -145,15 +162,18 @@ In this ARM template, below are the parameters that are used and their respectiv
 
 Remember to replace these parameters with your actual values when you're ready to deploy the template. Be mindful of the naming conventions for each resource type as indicated in Azure documentation.
 
+# Question example 3: ANF and Azure Backup
+
+## Question
+> Generate for me the ARM template to enable Azure Backup for Azure NetApp files.  
+
+## Result
+
+> As per the current Microsoft Documentation, there isn't a direct ARM template provided for Azure Backup for Azure NetApp Files. For setting up backups for Azure NetApp Files, you would need to manually set them up following the instructions provided in the [Microsoft Docs - Azure Backup](https://docs.microsoft.com/en-us/azure/backup/).
+Remark: it also gives a default template to setup a recovery service vault, which is nice but not helpfull. ToDo: need to prompt the critic to remove this.
+
 
 # Overall Observations
 We did several test for also non existing combinations like:
-
-## ANF and Azure Backup
-Question: 
-> Generate for me the ARM template to enable Azure Backup for Azure NetApp files.  
-Answer: 
-> As per the current Microsoft Documentation, there isn't a direct ARM template provided for Azure Backup for Azure NetApp Files. For setting up backups for Azure NetApp Files, you would need to manually set them up following the instructions provided in the [Microsoft Docs - Azure Backup](https://docs.microsoft.com/en-us/azure/backup/).
-Remark: it also gives a default template to setup a recovery service vault, which is nice but not helpfull. ToDo: need to prompt the critic to remove this.
 
 Mistakes in Cosmos and App Service I believe. Maybe need to specify "Azure Backup Service" specifically? 
