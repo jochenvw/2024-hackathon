@@ -47,8 +47,6 @@ Our solution leverages several agents to find answers to difficult questions:
 
 [Response](./src/lmgtfu-agent/_results/20240917001_run.md)
 
-
-
 ## Getting started
 
 Pre-reqs
