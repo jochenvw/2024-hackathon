@@ -31,6 +31,8 @@ Our solution leverages [https://microsoft.github.io/autogen/](https://microsoft.
 
 ## Agents
 
+Our solution leverages several agents to find answers to difficult questions:
+
 | Agent name       | Role    | Link   |   |
 |------------------|---------|----------|---|
 | Research manager | Creates the research plan, delegates the tasks and is only one to interact with 'us' | [src](./src/lmgtfu-agent/agents/research_manager.py) | ![](./assets/mgr.png) |
@@ -39,15 +41,24 @@ Our solution leverages [https://microsoft.github.io/autogen/](https://microsoft.
 | Critic           | Quality Assurance of the research and response. Checks whether the original question was properly answered. Whether evidence was provided, etc.     | [src](./src/lmgtfu-agent/agents/result_critic.py)      | ![](./assets/critic.png) |
 
 
+## Sample responses
 
-### Pre-reqs
+> What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table. Provide links to the official documentation as well as quotes from the documentation that support your answer.
 
-1. VSCode
-2. Docker
+[Response](./src/lmgtfu-agent/_results/20240917001_run.md)
 
 
-## Let's go
 
-1. Open solution in VSCode
-2. Open solution in DevContainer
-3. 
+## Getting started
+
+Pre-reqs
+
+1. Docker Desktop
+2. VSCode
+
+Get started
+
+1. Clone repository
+2. Open workspace in VSCode - and 'Reopen in DevContainer'
+3. Copy `.env.template` to `env` and make fill out all the required variables
+4. Hit run on `hack.py` and have fun!
