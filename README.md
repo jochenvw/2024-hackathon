@@ -40,12 +40,19 @@ Our solution leverages several agents to find answers to difficult questions:
 | WAF       | Expert on Azure Well Architected. Checks relevant queries for the 5-pillars     | [src](./src/lmgtfu-agent/agents/waf_expert.py)      | ![](./assets/waf.png) |
 | Critic           | Quality Assurance of the research and response. Checks whether the original question was properly answered. Whether evidence was provided, etc.     | [src](./src/lmgtfu-agent/agents/result_critic.py)      | ![](./assets/critic.png) |
 
+## See it in action
+
+![](./assets/agents_short.mp4)
 
 ## Sample responses
 
 > What of the following Azure services can be backed up using the Azure Backup Service: App Service? Return the results in a markdown table. Provide links to the official documentation as well as quotes from the documentation that support your answer.
 
 [Response](./src/lmgtfu-agent/_results/20240917001_run.md)
+
+
+> Generate for me the ARM template to enable Azure Backup for Azure files storage.
+[Response](./src/lmgtfu-agent/_results/arm-spec-checker.md)
 
 ## Getting started
 
