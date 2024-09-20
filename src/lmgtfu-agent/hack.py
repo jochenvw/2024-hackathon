@@ -34,6 +34,7 @@ load_dotenv()
 from skills.websearch import google_search
 from skills.scrape_website import scrape_website
 from skills.summarize import summarize_text
+from skills.get_arm_spec import go_get_arm_spec
 
 # Load the agents
 from agents import prompt_engineer, researcher, research_manager, executor, user_proxy, result_critic, waf_expert
@@ -47,9 +48,10 @@ gpt4_config = {
     "timeout": 120,
 }
 
-#register_function(scrape_website, caller=researcher.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
-#register_function(google_search, caller=researcher.agent, executor=executor.agent, name="google_search", description="A tool to search the internet or web for a specific topic", )
-#register_function(scrape_website, caller=result_critic.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+register_function(scrape_website, caller=researcher.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+register_function(google_search, caller=researcher.agent, executor=executor.agent, name="google_search", description="A tool to search the internet or web for a specific topic", )
+register_function(scrape_website, caller=result_critic.agent, executor=executor.agent, name="web_scraping", description="A tool to get the contents from of a specific URL of a website", )
+register_function(go_get_arm_spec, caller=researcher.agent, executor=executor.agent, name="get_arm_spec", description="A tool to get the ARM specifications for an Azure service", )
 
 
 # Create group chat
@@ -58,6 +60,6 @@ group_chat_manager = autogen.GroupChatManager(groupchat=groupchat, llm_config={"
 
 
 message = """
-Generate for me the ARM template to enable CMK for Azure NetApp Files.  
+Generate for me the ARM template to enable Azure Backup for Azure files storage.  
 """
 user_proxy.agent.initiate_chat(group_chat_manager, message=message)
