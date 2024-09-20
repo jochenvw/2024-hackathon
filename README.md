@@ -36,7 +36,7 @@ Our solution leverages [https://microsoft.github.io/autogen/](https://microsoft.
 | Research manager | Creates the research plan, delegates the tasks and is only one to interact with 'us' | [src](./src/lmgtfu-agent/agents/research_manager.py) | ![](./assets/mgr.png) |
 | Researcher       | Does research. Can search the web, read webpages and summarize content     | [src](./src/lmgtfu-agent/agents/researcher.py)      | ![](./assets/res.png) |
 | WAF       | Expert on Azure Well Architected. Checks relevant queries for the 5-pillars     | [src](./src/lmgtfu-agent/agents/waf_expert.py)      | ![](./assets/waf.png) |
-| Critic           | Quality Assurance of the research and response. Checks whether the original question was properly answered. Whether evidence was provided, etc.     | [src](./src/lmgtfu-agent/agents/result_critic.py)      | ![](./assets/result_critic.png) |
+| Critic           | Quality Assurance of the research and response. Checks whether the original question was properly answered. Whether evidence was provided, etc.     | [src](./src/lmgtfu-agent/agents/result_critic.py)      | ![](./assets/critic.png) |
 
 
 
