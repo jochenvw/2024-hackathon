@@ -53,6 +53,8 @@ Our solution leverages several agents to find answers to difficult questions:
 
 
 > Generate for me the ARM template to enable Azure Backup for Azure files storage.
+
+
 [Response](./src/lmgtfu-agent/_results/arm-spec-checker.md)
 
 ## Getting started
